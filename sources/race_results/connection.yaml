@@ -1,0 +1,5 @@
+# This file was automatically generated
+name: race_results
+type: duckdb
+options:
+  filename: race_results.duckdb
