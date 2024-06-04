@@ -1,6 +1,10 @@
 # Running Races Insights
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/df40b51a-2b33-42fa-bd5d-09639389e93b/deploy-status)](https://app.netlify.com/sites/circuitocarrerasdiputacioncuenca/deploys)
+
 ![](static/logo.png)
+
+Live website available [here](https://circuitocarrerasdiputacioncuenca.netlify.app)
 
 ## Using Codespaces
 

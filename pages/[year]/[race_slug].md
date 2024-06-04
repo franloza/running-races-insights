@@ -88,9 +88,9 @@ cross join prev_year
 />
 
 
-<Delta data={participants} column=crecimiento_participantes fmt=pct1 chip=true text="vs año anterior" />
-<Delta data={participants} column=crecimiento_hombres fmt=pct1 chip=true text="vs año anterior"/>
-<Delta data={participants} column=crecimiento_mujeres fmt=pct1 chip=true text="vs año anterior"/>
+<Delta data={participants} column=crecimiento_participantes fmt=pct1 chip=true text="Participantes vs año anterior" />
+<Delta data={participants} column=crecimiento_hombres fmt=pct1 chip=true text="Participantes (Hombres) vs año anterior"/>
+<Delta data={participants} column=crecimiento_mujeres fmt=pct1 chip=true text="Participante (Mujeres) vs año anterior"/>
 
 </Grid>
 
