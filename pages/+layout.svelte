@@ -12,6 +12,6 @@ let SiteColors = [
 ]
 </script>
 
-<EvidenceDefaultLayout {data} neverShowQueries={true} fullWidth={false} xProfile="https://x.com/franloza93" hideSidebar={true} title="Estadísticas del Circuito de Carreras Populares de Cuenca">
+<EvidenceDefaultLayout {data} neverShowQueries={true} fullWidth={false} githubRepo="https://github.com/franloza/running-races-insights" xProfile="https://x.com/franloza93" hideSidebar={true} title="Estadísticas del Circuito de Carreras Populares de Cuenca">
 	<slot slot="content" />
 </EvidenceDefaultLayout>

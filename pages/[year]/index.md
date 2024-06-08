@@ -9,7 +9,7 @@ hide_title: true
 
 # Circuito de Carreras Populares {params.year}
 
-## General
+## Estadísticas
 
 ```sql categories
 select
@@ -228,7 +228,6 @@ order by 1
     labelPosition=inside
     xFmt=0000
 />
-
 
 ## Carreras
 
