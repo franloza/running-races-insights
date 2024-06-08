@@ -47,12 +47,6 @@ def extract() -> pd.DataFrame:
     return results_df
 
 
-
-# TODO: Move this to transformation
-#columns = {'race_name': 'race_name', 'race_year': 'race_year', 'distance': 'distance', 'NombreT10': 'category', 'SexoT10': 'gender', 'MiliSegCarreraT05': 'time_ms'}
-#results_df.rename(columns, axis=1, inplace=True)
-#results_df.dropna(subset=['time_ms'], inplace=True)
-
 def load(data: pd.DataFrame):
     output_dir = 'data/raw'
     os.makedirs(output_dir, exist_ok=True)
