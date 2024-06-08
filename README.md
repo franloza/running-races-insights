@@ -4,7 +4,7 @@
 
 ![](static/logo.png)
 
-Live website available [here](https://circuitocarrerasdiputacioncuenca.netlify.app)
+Live website available [here](https://circuitocarrerasdiputacioncuenca.netlify.app). Blog post available [here](https://franloza.medium.com/how-to-create-a-data-web-app-for-free-with-evidence-c67ebaf91909).
 
 ## Using Codespaces
 
