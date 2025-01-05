@@ -157,6 +157,82 @@ order by 1
     xFmt=0000
 />
 
+### Mejores tiempos - Año {params.year}
+
+```sql best_times_men_year
+select 
+  formatted_time as tiempo,
+  pace_min_per_km_formatted as ritmo,
+  race_distance as distancia
+
+from results
+where race_slug='${params.race_slug}' and gender = 'Male' and race_year = ${params.year}
+order by time_ms
+limit 3
+```
+
+```sql best_times_women_year
+select 
+  formatted_time as tiempo,
+  pace_min_per_km_formatted as ritmo,
+  race_distance as distancia
+
+from results
+where race_slug='${params.race_slug}' and gender = 'Female' and race_year = ${params.year}
+order by time_ms
+limit 3
+```
+
+<Grid cols=2>
+<Group>
+    <b>Hombres</b>
+    <DataTable data={best_times_men_year}/>
+</Group>
+<Group>
+    <b>Mujeres</b>
+    <DataTable data={best_times_women_year}/>
+</Group>
+</Grid>
+
+### Mejores tiempos - Todos los años
+
+```sql best_times_men_all_years
+select 
+  formatted_time as tiempo,
+  pace_min_per_km_formatted as ritmo,
+  race_distance as distancia,
+  race_year as año
+
+from results
+where race_slug='${params.race_slug}' and gender = 'Male'
+order by time_ms
+limit 3
+```
+
+```sql best_times_women_all_years
+select 
+  formatted_time as tiempo,
+  pace_min_per_km_formatted as ritmo,
+  race_distance as distancia,
+  race_year as año
+
+from results
+where race_slug='${params.race_slug}' and gender = 'Female'
+order by time_ms
+limit 3
+```
+
+<Grid cols=2>
+<Group>
+    <b>Hombres</b>
+    <DataTable data={best_times_men_all_years}/>
+</Group>
+<Group>
+    <b>Mujeres</b>
+    <DataTable data={best_times_women_all_years}/>
+</Group>
+</Grid>
+
 
 Estadísticas del Circuito de Carreras Populares de Cuenca © 2024 by [Fran Lozano](https://www.franloza.com/) is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 [![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-sa/4.0/).
