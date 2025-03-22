@@ -16,24 +16,15 @@
   },
   "type": "module",
   "dependencies": {
-    "@evidence-dev/bigquery": "^2.0.5",
     "@evidence-dev/core-components": "^5.0.3",
-    "@evidence-dev/csv": "^1.0.8",
-    "@evidence-dev/databricks": "^1.0.5",
     "@evidence-dev/duckdb": "^1.0.9",
     "@evidence-dev/evidence": "^40.0.3",
-    "@evidence-dev/mssql": "^1.0.7",
-    "@evidence-dev/mysql": "^1.1.2",
-    "@evidence-dev/postgres": "^1.0.5",
-    "@evidence-dev/sdk": "^3.0.3",
-    "@evidence-dev/snowflake": "^1.0.5",
-    "@evidence-dev/sqlite": "^2.0.4",
-    "@evidence-dev/tailwind": "^3.0.3",
-    "@evidence-dev/trino": "^1.0.5"
+    "@evidence-dev/sdk": "^3.0.3"
   },
   "overrides": {
     "jsonwebtoken": "9.0.0",
     "trim@<0.0.3": ">0.0.3",
-    "sqlite3": "5.1.5"
+    "sqlite3": "5.1.5",
+    "duckdb": "^0.10.0"
   }
 }
