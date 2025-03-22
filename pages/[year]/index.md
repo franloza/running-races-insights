@@ -47,7 +47,8 @@ prev_year as (
 
 from results
 where race_year=${params.year}-1
-
+    -- Apples to apples comparison
+    and race_number <= (select max(race_number) from results where race_year=${params.year})
 
 )
 
