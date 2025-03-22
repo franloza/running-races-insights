@@ -4,7 +4,7 @@ hide_title: true
 ---
 
 
-{#if params.year == 2023 || params.year==2024 ||  params.year == 2022}
+{#if params.year >= 2022 }
 
 
 # Circuito de Carreras Populares {params.year}
