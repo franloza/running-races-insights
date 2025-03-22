@@ -5,7 +5,7 @@ build
 node_modules
 .DS_Store
 static/data
-*/data/raw/*
+data/raw/*
 *.options.yaml
 .vscode/settings.json
 .env
