@@ -49,7 +49,7 @@ race_number,race_name,race_location,race_slug,race_year
 21,XXII CARRERA POPULAR VILLA DE HONRUBIA - 2023,Honrubia,honrubia,2023
 22,XVIII CARRERA POPULAR SANTA EULALIA - 2023,Villares Del Saz,villares-del-saz,2023
 23,II CARRERA POPULAR LA JOYA BARROCA - 2023,Sisante,sisante,2023
-24,VII CARRERA POPULAR TIERRA DEL VÍTOR 2023,Horcajo de Santiago,horcajo-de-santiago,2023
+24,VII CARRERA POPULAR TIERRA DEL VITOR 2023,Horcajo de Santiago,horcajo-de-santiago,2023
 25,X CARRERA POPULAR PINOS DE ABDÓN,Olmedilla de Alarcón,olmedilla-de-alarcon,2023
 26,10K CUENCA 2023 - GRAN PREMIO DE OTOÑO,Cuenca (10k + 21k),cuenca,2023
 26,MEDIA MARATON CUENCA 2023 - GRAN PREMIO DE OTOÑO,Cuenca (10k + 21k),cuenca,2023
@@ -82,3 +82,28 @@ race_number,race_name,race_location,race_slug,race_year
 26,MEDIA MARATÓN DE CUENCA G. P. DE OTOÑO CIUDAD DE CUENCA 2024,Cuenca (10k + 21k),cuenca,2024
 1,CASIMARRO - CIRCUITO CCPP 2025,Casasimarro,casasimarro,2025
 2,XXIII CARRERA POPULAR VILLA DE VILLAMAYOR DE SANTIAGO - CCPP 2025,Villamayor de Santiago,villamayor-de-santiago,2025
+3,IX SUBIDA AL CASTILLO DE BELMONTE - 2025,Belmonte,belmonte,2025
+4,XL CARRERA POPULAR EL CAÑO,Tarancón,tarancon,2025
+5,XX CARRERA POPULAR CESAR CUEVAS - 2025,San Lorenzo de la Parrilla,san-lorenzo-de-la-parrilla,2025
+6,XVI CARRERA POPULAR VILLA DE QUINTANAR DEL REY - 2025,Quintanar del Rey,quintanar-del-rey,2025
+7,CARRERA POPULAR LA FUENTE - 2025,Fuente del Pedro Naharro,fuente-del-pedro-naharro,2025
+8,XVII SUBIDA A LOS MOLINOS DE MOTA DEL CUERVO,Mota del Cuervo,mota-del-cuervo,2025
+9,XVI 10K LA PITA - 2025,El Herrumblar,el-herrumblar,2025
+10,,San Clemente,san-clemente,2025
+11,,Minglanilla,minglanilla,2025
+12,,Villanueva de la Jara,villanueva-de-la-jara,2025
+13,,Alconchel de la Estrella,alconchel-de-la-estrella,2025
+14,,Uña,una,2025
+15,,Villarta,villarta,2025
+16,,Campillo de Altobuey,campillo-de-altobuey,2025
+17,,Cardenete,cardenete,2025
+18,,Iniesta,iniesta,2025
+19,,Motilla del Palancar,motilla-del-palancar,2025
+20,,Sisante,sisante,2025
+21,,Villares Del Saz,villares-del-saz,2025
+22,,El Peral,el-peral,2025
+23,,Olmedilla de Alarcón,olmedilla-de-alarcon,2025
+24,,Horcajo de Santiago,horcajo-de-santiago,2025
+25,,Honrubia,honrubia,2025
+26,,Cuenca (10k + 21k),cuenca,2025
+27,,Ledaña,ledana,2025
