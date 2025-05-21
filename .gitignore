@@ -11,3 +11,5 @@ data/raw/*
 .env
 venv
 notebooks/.ipynb_checkpoints/
+# Local Netlify folder
+.netlify
