@@ -4,9 +4,6 @@ on:
   schedule:
     - cron: '0 7 * * 1'  # Runs at 7:00 AM UTC every Monday
   workflow_dispatch:      # Allows manual triggering
-  # TODO: Remove this 'push' trigger before merging to main.
-  # It's for testing on the current branch and will run the workflow on every push.
-  push:
 
 jobs:
   update_data:
