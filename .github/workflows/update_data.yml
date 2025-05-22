@@ -1,0 +1,80 @@
+name: Update Race Data
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'  # Runs at 7:00 AM UTC every Monday
+  workflow_dispatch:      # Allows manual triggering
+
+jobs:
+  update_data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Needed to push commits and create branches/PRs
+      pull-requests: write # Needed to create PRs (if uncommented)
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for correct branch creation
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9' # Or your preferred Python version
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r elt/requirements.txt
+
+      - name: Run Intelligent Race Updater
+        id: race_updater
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          python scripts/intelligent_race_updater.py | tee output.log
+          echo "script_output=$(tail -n 1 output.log)" >> $GITHUB_OUTPUT
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          echo "Script output was: ${{ steps.race_updater.outputs.script_output }}"
+          if [[ "${{ steps.race_updater.outputs.script_output }}" == *"changes_made=true"* ]]; then
+            echo "Changes detected in circuit_races.csv"
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+          else
+            echo "No changes detected in circuit_races.csv"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update DuckDB and Commit Changes
+        if: steps.check_changes.outputs.changes_detected == 'true'
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Re-running elt/transform.py to update DuckDB..."
+          python elt/transform.py
+          echo "DuckDB updated."
+
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          BRANCH_NAME="update-races-$(date +%Y%m%d%H%M%S)"
+          git checkout -b $BRANCH_NAME
+          
+          git add data/circuit_races.csv sources/race_results/race_results.duckdb
+          git commit -m "Automated update: Refresh circuit races and DuckDB"
+          
+          echo "Pushing changes to $BRANCH_NAME..."
+          git push origin $BRANCH_NAME
+          echo "Changes pushed."
+
+          echo "Creating Pull Request..."
+          gh pr create --base main --head $BRANCH_NAME --title "Automated Race Data Update $(date +%Y-%m-%d)" --body "Automated update of circuit_races.csv and DuckDB based on new race results."
+          echo "Pull Request created."
+
+      - name: No changes to commit
+        if: steps.check_changes.outputs.changes_detected == 'false'
+        run: |
+          echo "No changes were made to data/circuit_races.csv. No commit will be made." 

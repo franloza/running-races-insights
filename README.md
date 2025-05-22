@@ -48,3 +48,38 @@ Check out the docs for [alternative install methods](https://docs.evidence.dev/g
 - [Github](https://github.com/evidence-dev/evidence)
 - [Slack Community](https://slack.evidence.dev/)
 - [Evidence Home Page](https://www.evidence.dev)
+
+## Manual Data Update Process
+
+The following steps were previously performed manually to update the race data. This process is now largely automated by a GitHub Action that runs the `scripts/intelligent_race_updater.py` script.
+
+1.  **Activate Virtual Environment:**
+    *   Ensure the Python virtual environment (created using dependencies in `elt/requirements.txt`) is active.
+    *   Example: `source .venv/bin/activate` (or your specific venv activation command).
+
+2.  **Update Raw Data and Base DuckDB:**
+    *   Run the ELT (Extract, Load, Transform) scripts to fetch the latest race results and build the initial DuckDB database.
+    *   Command: `python elt/extract.py && python elt/transform.py`
+    *   Alternatively, using the Makefile: `make elt`
+
+3.  **Identify New Races & Update `circuit_races.csv`:**
+    *   Query the `race_results.parquet` file (located in `data/raw/`) to find races from the current year that have occurred but whose names are not yet filled in `data/circuit_races.csv`.
+    *   Manually (or with the help of a script/LLM) match these new race events to the corresponding placeholder rows in `data/circuit_races.csv` (where `race_name` is empty but `race_location`, `race_slug`, etc., are pre-filled for the year's schedule).
+    *   Update the empty `race_name` field in `data/circuit_races.csv` with the official race name for each matched placeholder.
+
+4.  **Update DuckDB Database with Enriched CSV:**
+    *   After `data/circuit_races.csv` has been updated with the new race names, re-run the transformation script to ensure the main DuckDB database (`sources/race_results/race_results.duckdb`) reflects these additions and is correctly joined.
+    *   Command: `python elt/transform.py`
+    *   (If using `make elt` in step 2, and step 3 was manual, you'd re-run this transform part separately or ensure the main update script handles it).
+
+**Automation via `scripts/intelligent_race_updater.py` and GitHub Actions:**
+
+*   The `scripts/intelligent_race_updater.py` script (which can be run via `make update`) now automates steps 2, 3, and 4.
+    *   It calls the ELT scripts (`extract.py` and `transform.py`).
+    *   It identifies placeholder races in `circuit_races.csv`.
+    *   It queries an LLM (via OpenRouter API) to find the best matching official race name for each placeholder from the races found in `race_results.parquet`.
+    *   It updates `circuit_races.csv` with these names.
+*   The GitHub Action (`.github/workflows/update_data.yml`) orchestrates this process:
+    *   Runs `scripts/intelligent_race_updater.py` on a schedule or manually.
+    *   If changes are made by the script, it re-runs `elt/transform.py` to ensure the DuckDB is up-to-date with the AI-filled CSV.
+    *   It then commits the changes to a new branch and creates a Pull Request.
