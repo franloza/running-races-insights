@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: '0 7 * * 1'  # Runs at 7:00 AM UTC every Monday
   workflow_dispatch:      # Allows manual triggering
+  # TODO: Remove this 'push' trigger before merging to main.
+  # It's for testing on the current branch and will run the workflow on every push.
+  push:
 
 jobs:
   update_data:
@@ -70,9 +73,9 @@ jobs:
           git push origin $BRANCH_NAME
           echo "Changes pushed."
 
-          # echo "Creating Pull Request..."
-          # gh pr create --base main --head $BRANCH_NAME --title "Automated Race Data Update $(date +%Y-%m-%d)" --body "Automated update of circuit_races.csv and DuckDB based on new race results."
-          # echo "Pull Request created."
+          echo "Creating Pull Request..."
+          gh pr create --base main --head $BRANCH_NAME --title "Automated Race Data Update $(date +%Y-%m-%d)" --body "Automated update of circuit_races.csv and DuckDB based on new race results."
+          echo "Pull Request created."
 
       - name: No changes to commit
         if: steps.check_changes.outputs.changes_detected == 'false'
