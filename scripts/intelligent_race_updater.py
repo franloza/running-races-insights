@@ -321,6 +321,14 @@ def main():
         # Create a mapping from placeholder_identifier to its original index for quick updates
         # Ensure placeholders_df index is the same as in full_circuit_df for these rows
         placeholder_map = {row['placeholder_identifier']: index for index, row in placeholders_df.iterrows()}
+        
+        # Create a set of existing race names to prevent duplicates
+        # We'll check for duplicates based on race_name only (case-insensitive)
+        existing_race_names = set()
+        for _, row in full_circuit_df.iterrows():
+            if pd.notna(row['race_name']) and str(row['race_name']).strip():
+                race_name_normalized = str(row['race_name']).strip().upper()
+                existing_race_names.add(race_name_normalized)
 
         for match in llm_matched_races:
             placeholder_id = match.get('placeholder_identifier')
@@ -347,6 +355,13 @@ def main():
                 print(f"  Warning: LLM returned a matched_race_name \"{cleaned_matched_name}\" for placeholder ID {placeholder_id} that is NOT in the list of actual races from parquet. Skipping this match.", file=sys.stderr)
                 continue
             # --- End Validation Step ---
+            
+            # --- Duplicate Prevention Check ---
+            matched_name_normalized = cleaned_matched_name.strip().upper()
+            if matched_name_normalized in existing_race_names:
+                print(f"  Warning: Race name \"{cleaned_matched_name}\" for placeholder ID {placeholder_id} already exists in the CSV. Skipping to avoid duplicate.", file=sys.stderr)
+                continue
+            # --- End Duplicate Prevention Check ---
 
             if placeholder_id in placeholder_map:
                 original_df_index = placeholder_map[placeholder_id]
@@ -354,6 +369,8 @@ def main():
                 current_name_in_csv = full_circuit_df.loc[original_df_index, 'race_name']
                 if pd.isnull(current_name_in_csv) or str(current_name_in_csv).strip() == '':
                     full_circuit_df.loc[original_df_index, 'race_name'] = cleaned_matched_name
+                    # Add the new race name to existing_race_names to prevent duplicates in subsequent updates
+                    existing_race_names.add(matched_name_normalized)
                     print(f"  Successfully updated placeholder ID {placeholder_id} with name: \"{cleaned_matched_name}\"")
                     changes_made = True
                 else:
